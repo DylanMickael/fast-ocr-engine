@@ -1,10 +1,7 @@
-import { extractDataFromImage } from './api.js';
-import { saveLetter, deleteLetter, searchLetters } from './storage.js';
-
 /**
  * Handles all UI transitions, event listeners, and rendering
  */
-export const UI = {
+const UI = {
     // Views
     scanView: document.getElementById('view-scan'),
     archiveView: document.getElementById('view-archive'),
@@ -103,6 +100,7 @@ export const UI = {
         this.processingState.classList.remove('hidden');
 
         try {
+            // function from api.js
             const data = await extractDataFromImage(file);
             this.displayResults(data);
         } catch (error) {
@@ -140,6 +138,7 @@ export const UI = {
             imageData: this.imagePreview.src
         };
 
+        // function from storage.js
         saveLetter(letterData);
         alert("Lettre enregistrée !");
         this.resetUpload();
@@ -155,6 +154,7 @@ export const UI = {
     },
 
     renderArchive(query = '') {
+        // function from storage.js
         const letters = searchLetters(query);
         this.archiveList.innerHTML = '';
 
@@ -188,6 +188,7 @@ export const UI = {
             card.querySelector('.delete-btn').onclick = (e) => {
                 e.stopPropagation();
                 if (confirm("Supprimer cette lettre ?")) {
+                    // function from storage.js
                     deleteLetter(letter.id);
                     this.renderArchive(this.searchInput.value);
                 }

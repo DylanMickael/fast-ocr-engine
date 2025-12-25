@@ -1,11 +1,14 @@
 const STORAGE_KEY = 'llama_ocr_archive';
 
-export function getAllLetters() {
+/**
+ * Storage functions exposed globally via window or just as top-level functions
+ */
+function getAllLetters() {
     const letters = localStorage.getItem(STORAGE_KEY);
     return letters ? JSON.parse(letters) : [];
 }
 
-export function saveLetter(letterData) {
+function saveLetter(letterData) {
     const letters = getAllLetters();
     const newLetter = {
         ...letterData,
@@ -17,7 +20,7 @@ export function saveLetter(letterData) {
     return newLetter;
 }
 
-export function updateLetter(id, updatedData) {
+function updateLetter(id, updatedData) {
     const letters = getAllLetters();
     const index = letters.findIndex(l => l.id === id);
     if (index !== -1) {
@@ -28,13 +31,13 @@ export function updateLetter(id, updatedData) {
     return false;
 }
 
-export function deleteLetter(id) {
+function deleteLetter(id) {
     const letters = getAllLetters();
     const filtered = letters.filter(l => l.id !== id);
     localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
 }
 
-export function searchLetters(query) {
+function searchLetters(query) {
     const letters = getAllLetters();
     if (!query) return letters;
 

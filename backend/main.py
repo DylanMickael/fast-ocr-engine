@@ -3,6 +3,7 @@ import shutil
 from typing import Optional
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from llama_cloud_services import LlamaExtract
 from llama_cloud import ExtractConfig
 from pydantic import BaseModel
@@ -21,7 +22,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# API Key from environment or hardcoded as per user request (though environment is better)
+# API Key from environment
 API_KEY = os.getenv("LLAMA_CLOUD_API_KEY")
 
 extractor = LlamaExtract()
@@ -64,7 +65,7 @@ EXTRACTION_CONFIG = {
         "page_range": None
 }
 
-@app.post("/extract")
+@app.post("/api/extract")
 async def extract_letters(file: UploadFile = File(...)):
     # Create a temporary file to save the upload
     temp_dir = "temp"
@@ -86,6 +87,10 @@ async def extract_letters(file: UploadFile = File(...)):
         if os.path.exists(temp_path):
             os.remove(temp_path)
         raise HTTPException(status_code=500, detail=str(e))
+
+# Mount the frontend directory on the root
+# Note: StaticFiles must be mounted AFTER other specific routes to avoid routing conflicts
+app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")
 
 if __name__ == "__main__":
     import uvicorn

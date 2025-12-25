@@ -1,71 +1,76 @@
-# Llama OCR - Système d'Archivage Intelligent
+# Llama OCR - Intelligent Archiving System
 
-Ce projet est un système d'OCR (Reconnaissance Optique de Caractères) intelligent conçu pour numériser et archiver des lettres administratives. Il utilise **FastAPI** pour le backend, **Vanilla JS** pour le frontend, et l'API **LlamaIndex (LlamaExtract)** pour l'extraction structurée des données.
+An intelligent OCR system designed to digitize and archive administrative letters. This project features a **FastAPI** backend that extracts structured data using **LlamaIndex (LlamaExtract)** and serves a premium **Vanilla JS** frontend.
 
-## 🚀 Fonctionnalités
+## 🚀 Key Features
 
-- **Extraction Intelligente** : Utilise LlamaExtract avec un schéma JSON strict pour extraire :
-  - Service Expéditeur
-  - Service Destinataire
-  - Date
-  - Numéro de la lettre
-  - Objet
-  - Degré d'importance (Normal, Urgent, Très Urgent)
-  - Corps de la lettre (paragraphes complets)
-- **Interface Premium** : Design moderne avec Glassmorphism, mode sombre et animations fluides.
-- **Gestion CRUD** : Enregistrez, visualisez, recherchez et supprimez vos lettres archivées (stockage local).
-- **Architecture Micro-service** : Communication fluide entre un micro-service Python (FastAPI) et une interface Web.
+- **Intelligent Extraction**: Uses LlamaExtract with a strict JSON schema to capture:
+  - **Sender**: Entity sending the letter.
+  - **Receiver**: Intended recipient.
+  - **Date**: Document date.
+  - **Letter Number**: Official reference number.
+  - **Subject**: Main topic of the letter.
+  - **Importance**: Categorized as Normal, Urgent, or Very Urgent.
+  - **Body**: Full text paragraphs of the letter.
+- **Premium UI**: Modern dark-themed interface with glassmorphism and smooth animations.
+- **Integrated CRUD**: Save, view, search, and delete archived letters (stored in browser's local storage).
+- **Single Server Architecture**: Fast development and deployment with FastAPI serving both the API and the static frontend.
 
-## 🛠️ Structure du Projet
+## 🛠️ Project Structure
 
 ```text
 ocr-js/
-├── backend/            # Micro-service FastAPI (Python)
-│   ├── main.py         # Serveur API et logique LlamaExtract
-│   ├── requirements.txt # Dépendances Python
-│   └── .env            # Clé API LlamaCloud
-├── frontend/           # Interface utilisateur (JS/HTML/CSS)
-│   ├── index.html      # Page principale
-│   ├── css/            # Styles CSS
-│   ├── js/             # Logique applicative (Modules ES)
-│   └── server.js       # Petit serveur statique Node.js
-└── README.md
+├── backend/            # FastAPI Microservice (Python)
+│   ├── main.py         # Main server (API + Static File Hosting)
+│   ├── .env            # Environment variables (LLAMA_CLOUD_API_KEY)
+│   └── requirements.txt # Python dependencies
+├── frontend/           # Web Interface (HTML/CSS/JS)
+│   ├── index.html      # Main UI
+│   ├── css/            # Stylesheets
+│   └── js/             # Application logic (Vanilla JS)
+├── README.md           # Documentation
+└── .gitignore          # Git exclusion rules
 ```
 
-## ⚙️ Installation
+## ⚙️ Setup Instructions
 
-### 1. Backend (Python)
-- Allez dans le dossier `backend`.
-- Créez un environnement virtuel (optionnel mais recommandé) :
-  ```bash
-  virtualenv venv
-  .\venv\Scripts\activate
-  ```
-- Installez les dépendances :
-  ```bash
-  pip install -r requirements.txt
-  ```
-- Créez un fichier `.env` dans le dossier `backend` et ajoutez votre clé :
-  ```env
-  LLAMA_CLOUD_API_KEY=votre_cle_ici
-  ```
-- Lancez le serveur :
-  ```bash
-  uvicorn main:app --reload
-  ```
+### 1. Prerequisites
+- Python 3.9+
+- A LlamaCloud API Key from [LlamaIndex](https://cloud.llamaindex.ai/)
 
-### 2. Frontend (JavaScript)
-- Allez dans le dossier `frontend`.
-- Lancez le serveur statique :
-  ```bash
-  node server.js
-  ```
-- Accédez à l'application via : **`http://localhost:3000`**
+### 2. Backend Installation
+1. Navigate to the `backend` directory:
+   ```bash
+   cd backend
+   ```
+2. Create and activate a virtual environment:
+   ```bash
+   virtualenv venv
+   .\venv\Scripts\activate
+   ```
+3. Install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Create a `.env` file in the `backend` folder and add your key:
+   ```env
+   LLAMA_CLOUD_API_KEY=your_llama_cloud_api_key_here
+   ```
 
-## 📖 Utilisation
+### 3. Launching the Application
+Run the FastAPI server from the `backend` folder:
+```bash
+uvicorn main:app --reload
+```
+Navigate to **`http://localhost:8000`** in your browser to use the app.
 
-1. Glissez-déposez une image de lettre sur la zone d'upload.
-2. Attendez l'extraction par l'IA (Mode **PREMIUM** activé pour une précision maximale).
-3. Vérifiez les données extraites dans le formulaire.
-4. Cliquez sur "Enregistrer" pour ajouter la lettre à votre archive locale.
-5. Gérez vos documents dans l'onglet "Archive".
+## 📖 How to Use
+
+1. **Upload**: Drag and drop a letter image into the upload card.
+2. **Process**: Wait for the AI analysis (**PREMIUM** mode enabled for maximum accuracy).
+3. **Review**: The extracted data will populate the form automatically.
+4. **Archive**: Click "Enregistrer" to save the letter to your local archive.
+5. **Manage**: Use the "Archive" tab to search through your documents or delete entries.
+
+---
+*Powered by LlamaIndex & FastAPI*

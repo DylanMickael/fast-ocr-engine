@@ -1,9 +1,9 @@
-const BACKEND_URL = "http://localhost:8000/extract";
+const BACKEND_URL = "/api/extract";
 
 /**
  * Calls the local FastAPI backend for structured extraction
  */
-export async function extractDataFromImage(file) {
+async function extractDataFromImage(file) {
     const formData = new FormData();
     formData.append('file', file);
 

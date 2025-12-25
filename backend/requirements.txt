@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+llama-cloud-services
+python-multipart
+python-dotenv
